@@ -1,0 +1,7 @@
+index=main sourcetype="XmlWinEventLog:Microsoft-Windows-Sysmon/Operational" "<EventID>15</EventID>"
+| rex field=_raw "Image'>(?<ProcessImage>[^<]+)"
+| rex field=_raw "TargetFilename'>(?<TargetFile>[^<]+)"
+| rex field=_raw "HostUrl'>(?<DownloadSource>[^<]+)"
+| rex field=_raw "User'>(?<ExecutingUser>[^<]+)"
+| table _time, ExecutingUser, ProcessImage, TargetFile, DownloadSource
+| sort - _time
