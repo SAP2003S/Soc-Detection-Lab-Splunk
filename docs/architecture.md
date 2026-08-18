@@ -9,10 +9,10 @@ This document details the virtualized lab infrastructure, IP assignments, networ
 ```text
 ┌──────────────────────────────────────┐            ┌──────────────────────────────────────┐
 │        ATTACKER (Kali Linux)         │            │      TARGET (Windows 10 Workstation) │
-│        IP: 192.168.20.11             │            │      IP: 192.168.20.10               │
+│        IP: 192.168.20.**             │            │      IP: 192.168.20.**              │
 ├──────────────────────────────────────┤            ├──────────────────────────────────────┤
-│  • msfvenom Payload Generator        │ <========> │  • Host: DESKTOP-3A7Q75P             │
-│  • Python HTTP Server (:8080)        │  TCP :4444 │  • User: DESKTOP-3A7Q75P\soc-lab     │
+│  • msfvenom Payload Generator        │ <========> │  • Host: DESKTOP-******             │
+│  • Python HTTP Server (:8080)        │  TCP :4444 │  • User: DESKTOP-******\soc-lab     │
 │  • Metasploit Handler (:4444)        │            │  • Microsoft Sysmon v15+ (Sensor)    │
 └──────────────────────────────────────┘            │  • Splunk Universal Forwarder (UF)   │
                                                     └──────────────────┬───────────────────┘
