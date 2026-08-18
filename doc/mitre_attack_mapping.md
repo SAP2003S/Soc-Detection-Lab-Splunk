@@ -1,6 +1,4 @@
----
 
-### `docs/mitre_attack_mapping.md`
 
 ```markdown
 # 🗺️ MITRE ATT&CK Mapping & Verification Matrix
