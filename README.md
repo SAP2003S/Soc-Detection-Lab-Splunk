@@ -18,26 +18,12 @@
 </div>
 
 ---
-
 ## 📑 Table of Contents
 - [🎯 Executive Summary](#executive-summary)
 - [🏗️ Lab Topology & Ingestion Pipeline](#lab-topology-ingestion-pipeline)
 - [🗺️ MITRE ATT&CK Alignment](#mitre-attack-alignment)
-- [⚔️ Interactive Attack Lifecycle & Telemetry Evidence](#attack-lifecycle-telemetry-evidence)
-  - [1. Network Reachability & Interface Configuration](#phase-1-network)
-  - [2. Reverse TCP Binary Compilation](#phase-2-payload)
-  - [3. Multi/Handler Listener Initialization](#phase-3-listener)
-  - [4. Delivery Web Server Access Telemetry](#phase-4-delivery)
-  - [5. Target Execution from User Space](#phase-5-execution)
-  - [6. Established Meterpreter Session & Reconnaissance](#phase-6-session)
-  - [7. Process Creation & Lineage Hunting (Event ID 1)](#phase-7-process)
-  - [8. Outbound Non-Standard C2 Socket Hunting (Event ID 3)](#phase-8-network)
-  - [9. XML Key-Value Stream Parsing (Event ID 15)](#phase-9-xmlkv)
-  - [10. Custom Regex Ingress & MOTW Extraction (Event ID 15)](#phase-10-rex)
+- [⚔️ Attack Lifecycle & Telemetry Evidence](#attack-lifecycle-telemetry-evidence)
 - [🔍 Production Splunk SPL Queries](#production-splunk-spl-queries)
-  - [Rule 1: Browser Ingress & Zone Identifier Hunting (Event ID 15)](#query-rule-1)
-  - [Rule 2: Malicious Process Lineage Extraction (Event ID 1)](#query-rule-2)
-  - [Rule 3: Non-Standard Outbound C2 Socket Hunting (Event ID 3)](#query-rule-3)
 - [📑 Incident Root Cause Analysis (RCA)](#incident-rca)
 - [📁 Repository Directory Tree](#repository-directory-tree)
 
@@ -45,6 +31,35 @@
 
 <div id="executive-summary"></div>
 
+## 🎯 Executive Summary
+
+---
+
+<div id="lab-topology-ingestion-pipeline"></div>
+
+## 🏗️ Lab Topology & Ingestion Pipeline
+
+```text
+┌──────────────────────────────────────┐            ┌──────────────────────────────────────┐
+│        ATTACKER (Kali Linux)         │            │      TARGET (Windows 10 Workstation) │
+│        IP: 192.168.20.11             │            │      IP: 192.168.20.10               │
+├──────────────────────────────────────┤            ├──────────────────────────────────────┤
+│  • msfvenom Payload Generator        │ <========> │  • Host: DESKTOP-3A7Q75P             │
+│  • Python HTTP Staging (:8080)       │  TCP :4444 │  • User: DESKTOP-3A7Q75P\soc-lab     │
+│  • Metasploit Handler (:4444)        │            │  • Microsoft Sysmon v15+ (Sensor)    │
+└──────────────────────────────────────┘            │  • Splunk Universal Forwarder (UF)   │
+                                                    └──────────────────┬───────────────────┘
+                                                                       │
+                                                               TCP :9997 (Encrypted Stream)
+                                                                       ▼
+                                                    ┌──────────────────────────────────────┐
+                                                    │         SIEM / INDEXER HOST          │
+                                                    │         Splunk Enterprise            │
+                                                    ├──────────────────────────────────────┤
+                                                    │  • Windows Host Ingestion (:9997)    │
+                                                    │  • Web Search Head (Port :8000)      │
+                                                    │  • Custom SPL Field Extraction       │
+                                                    └──────────────────────────────────────┘
 ## 🎯 Executive Summary
 
 This project showcases a verified detection engineering workflow designed to capture, parse, and alert on an adversary establishing an interactive reverse TCP shell.
