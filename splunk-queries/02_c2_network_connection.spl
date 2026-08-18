@@ -1,0 +1,9 @@
+index=main sourcetype="XmlWinEventLog:Microsoft-Windows-Sysmon/Operational" "<EventID>3</EventID>" "payload"
+| rex field=_raw "Image'>(?<Image>[^<]+)"
+| rex field=_raw "SourceIp'>(?<SourceIp>[^<]+)"
+| rex field=_raw "SourcePort'>(?<SourcePort>[^<]+)"
+| rex field=_raw "DestinationIp'>(?<DestinationIp>[^<]+)"
+| rex field=_raw "DestinationPort'>(?<DestinationPort>[^<]+)"
+| rex field=_raw "User'>(?<User>[^<]+)"
+| where DestinationPort="4444" OR NOT DestinationPort IN ("80", "443", "53")
+| table _time, User, Image, SourceIp, SourcePort, DestinationIp, DestinationPort
