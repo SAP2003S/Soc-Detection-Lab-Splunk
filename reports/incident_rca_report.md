@@ -12,7 +12,7 @@
 ---
 
 ## Executive Summary
-A security incident occurred on host `DESKTOP-3A7Q75P` involving unauthorized standalone binary execution and an outbound reverse TCP C2 connection. An executable named `payload.exe` was downloaded from `http://192.168.20.11:8080` via Microsoft Edge into the user's `Downloads` folder. The binary was executed interactively, establishing a reverse TCP socket to `192.168.20.11:4444`. The attacker subsequently spawned `cmd.exe` to run discovery commands before the process terminated.
+A security incident occurred on host `DESKTOP-*****` involving unauthorized standalone binary execution and an outbound reverse TCP C2 connection. An executable named `payload.exe` was downloaded from `http://192.168.20.11:8080` via Microsoft Edge into the user's `Downloads` folder. The binary was executed interactively, establishing a reverse TCP socket to `192.168.20.11:4444`. The attacker subsequently spawned `cmd.exe` to run discovery commands before the process terminated.
 
 ---
 
@@ -20,9 +20,9 @@ A security incident occurred on host `DESKTOP-3A7Q75P` involving unauthorized st
 
 | Timestamp | Source | Event ID | Activity Observed | Evidence Reference |
 | :--- | :--- | :--- | :--- | :--- |
-| `13:20:38` | Sysmon | ID 15 | `msedge.exe` wrote `payload.exe:Zone.Identifier` from `http://192.168.20.11:8080` | `10_splunk_sysmon_eventid_15_regex_zone_identifier.jpg` |
-| `13:23:38` | Sysmon | ID 1 | `payload.exe` spawned under user `DESKTOP-3A7Q75P\soc-lab` | `07_splunk_sysmon_eventid_1_process_creation.jpg` |
-| `13:23:40` | Sysmon | ID 3 | `payload.exe` connected to `192.168.20.11:4444` | `08_splunk_sysmon_eventid_3_network_connection.jpg` |
+| `13:20:38` | Sysmon | ID 15 | `msedge.exe` wrote `payload.exe:Zone.Identifier` from `http://192.168.20.**:8080` | `10_splunk_sysmon_eventid_15_regex_zone_identifier.jpg` |
+| `13:23:38` | Sysmon | ID 1 | `payload.exe` spawned under user `DESKTOP-*****\soc-lab` | `07_splunk_sysmon_eventid_1_process_creation.jpg` |
+| `13:23:40` | Sysmon | ID 3 | `payload.exe` connected to `192.168.20.**:4444` | `08_splunk_sysmon_eventid_3_network_connection.jpg` |
 | `13:31:47` | Sysmon | ID 1 | `payload.exe` spawned child process `cmd.exe` | `07_splunk_sysmon_eventid_1_process_creation.jpg` |
 | `13:38:59` | Sysmon | ID 1 | `payload.exe` triggered `WerFault.exe` upon exit | `07_splunk_sysmon_eventid_1_process_creation.jpg` |
 
