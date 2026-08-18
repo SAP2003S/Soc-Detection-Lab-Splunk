@@ -19,8 +19,8 @@ This document maps the adversary behaviors observed in this lab to the **MITRE A
 ## 🔍 Verified Technical Breakdown
 
 ### 1. Initial Access: Drive-by Compromise (`T1189`)
-* **Observed Red Team Behavior:** Target host requested `GET /payload.exe` from `192.168.20.11:8080`.
-* **Captured Endpoint Telemetry:** Sysmon Event ID 15 captured `msedge.exe` saving `C:\Users\soc-lab\Downloads\payload.exe:Zone.Identifier` with HostUrl `[http://192.168.20.11:8080/payload.exe](http://192.168.20.11:8080/payload.exe)`.
+* **Observed Red Team Behavior:** Target host requested `GET /payload.exe` from `192.168.20.**:8080`.
+* **Captured Endpoint Telemetry:** Sysmon Event ID 15 captured `msedge.exe` saving `C:\Users\soc-lab\Downloads\payload.exe:Zone.Identifier` with HostUrl `[http://192.168.20.**:8080/payload.exe](http://192.168.20.**:8080/payload.exe)`.
 * **Splunk Query:**
   ```splunk
   index=main sourcetype="*Sysmon*" "<EventID>15</EventID>"
