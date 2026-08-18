@@ -4,10 +4,10 @@
 * **Incident ID:** `INC-20260817-01`
 * **Severity:** High
 * **Status:** Resolved / Remediated
-* **Affected Endpoint:** `DESKTOP-3A7Q75P`
-* **Compromised User:** `DESKTOP-3A7Q75P\soc-lab`
-* **Attacker IP:** `192.168.20.11`
-* **Victim IP:** `192.168.20.10`
+* **Affected Endpoint:** `DESKTOP-******`
+* **Compromised User:** `DESKTOP-******\soc-lab`
+* **Attacker IP:** `192.168.20.**`
+* **Victim IP:** `192.168.20.**`
 
 ---
 
